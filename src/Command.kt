@@ -20,22 +20,20 @@ email – адрес электронной почты
  */
 
 sealed interface Command {
-    class Exit(var validValue: Boolean) : Command {
+    class Exit() : Command {
         override fun isValid(): Boolean {
-            //validValue = true
-            return validValue
+            return true
         }
     }
 
-    class Help(var validValue: Boolean) : Command {
+    class Help() : Command {
         override fun isValid(): Boolean {
-            validValue = true
-            return validValue
+            return true
         }
     }
     class AddPhone(var validValue: Boolean) : Command {
         override fun isValid(): Boolean {
-            validValue = true
+            //validValue = true
             return validValue
         }
     }

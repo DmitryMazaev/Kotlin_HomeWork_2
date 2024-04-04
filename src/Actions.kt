@@ -1,4 +1,8 @@
 class Actions {
+    /*
+    Оставил создание экземпляра класса Person, поскольку в методе show() в случае,
+    когда ни один пользователь не был введен, осуществляется проверка if (person.name == null)
+     */
     val person = Person(null, null, null)
     var stringFromConsole: String = ""
     var start: Boolean = true
@@ -13,17 +17,21 @@ class Actions {
         val command = a.split(del)
 
         if (command[0] == "exit") {
-            val exit = Command.Exit(true)
+            val exit = Command.Exit()
+            exit.isValid()
             newCommand(exit)
             start = false
         }
         if (command[0]  == "help") {
-            val help = Command.Help(true)
+            val help = Command.Help()
+            help.isValid()
             newCommand(help)
         }
         if (command[0] == "add" && command[2] == "phone") {
             val addPhone = Command.AddPhone(true)
             if (checkPhone()) {
+                addPhone.validValue = true
+                addPhone.isValid()
                 newCommand(addPhone)
                 person.name = command[1]
                 person.phone = command[3]
@@ -31,6 +39,7 @@ class Actions {
             }
             else {
                 addPhone.validValue = false
+                addPhone.isValid()
                 println("Введен некорректный номер")
                 help()
             }
@@ -38,6 +47,8 @@ class Actions {
         if (command[0] == "add" && command[2] == "email") {
             val addEmail = Command.AddEmail(true)
             if (checkEmail()) {
+                addEmail.validValue = true
+                addEmail.isValid()
                 newCommand(addEmail)
                 person.name = command[1]
                 person.email = command[3]
@@ -45,6 +56,7 @@ class Actions {
             }
             else {
                 addEmail.validValue = false
+                addEmail.isValid()
                 println("Введена некорректная электронная почта")
                 help()
             }
@@ -53,8 +65,12 @@ class Actions {
             val show = Command.Show(true)
             if (person.name == null) {
                 println("Not initialized")
+                show.validValue = false
+                show.isValid()
             }
             else {
+                show.validValue = true
+                show.isValid()
                 newCommand(show)
             }
         }
